@@ -3,18 +3,17 @@ Created by Zypp, 12-09-2023
 """
 
 import numpy as np
-import pandas as pd
 from scipy.stats import expon, kstest
 import seaborn as sns
 import matplotlib.pyplot as plt
 
 
-def plot_results(spacings: np.array, params):
+def plot_results(spacings: np.array, params: tuple, p_value: float):
     sns.histplot(spacings, kde=True, stat='density', bins=30, label='Empirical Distribution')
     x = np.linspace(min(spacings), max(spacings), 100)
     pdf = expon.pdf(x, *params)
     plt.plot(x, pdf, label='Theoretical Exponential Distribution', color='red')
-    plt.title('Distribution of Spacings')
+    plt.title(f'Distribution of Spacings (p-value: {p_value:.4f})')
     plt.xlabel('Spacing')
     plt.ylabel('Density')
     plt.legend()
@@ -37,7 +36,7 @@ def birthday_spacing_test(n_numbers: int, range_interval: float):
     # Conduct the Kolmogorov-Smirnov test to compare the empirical and theoretical distributions
     ks_statistic, p_value = kstest(spacings, 'expon', args=params)
 
-    plot_results(spacings, params)
+    plot_results(spacings, params, p_value)
 
     print("KS Statistic:", ks_statistic)
     print("P-value:", p_value)
