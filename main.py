@@ -175,6 +175,11 @@ def perform_birthday_spacing_test(n_numbers: int, n_perform_test: int = 10_000) 
 
 
 def test_randomness_with_birthday_spacing_test() -> None:
+    """
+    Voert de birthday spacing test uit en bepaald of de verwachte kans overeenkomt met de werkelijke kans.
+        1. De dictionary met expected outcome wordt getoetst door 100.000 keer de generator uit te laten voeren.
+        2. De resultaten worden geplot in een frame, om aan te tonen dat de berekende kans overeenkomt met de verwachte kans.
+    """
     expected_outcome_dict = birthday_spacing_expectation()
 
     results_data = {"Number of People": [], "Expected Percentage": [], "Calculated Percentage": []}
